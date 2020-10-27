@@ -21,15 +21,55 @@ public class Restaurant {
     @Column(name = "restaurantID")
     private int restaurantID;
 
-    @Column(name = "restaurantName")
+    @Column(name = "restaurantname")
     private String name;
 
-    @Column(name = "restaurantEmail")
+    @Column(name = "restaurantemail")
     private String email;
 
-    @Column(name = "restaurantPhoneNum")
+    @Column(name = "restaurantphonenum")
     private String phone;
 
     @Column(name = "addressID")
-    private String addressID;
+    private int addressID;
+
+    public int getRestaurantID() {
+        return restaurantID;
+    }
+
+    public void setRestaurantID(int restaurantID) {
+        this.restaurantID = restaurantID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public int getAddressID() {
+        return addressID;
+    }
+
+    public void setAddressID(int addressID) {
+        this.addressID = addressID;
+    }
 }

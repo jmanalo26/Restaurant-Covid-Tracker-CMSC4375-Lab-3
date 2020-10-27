@@ -34,7 +34,7 @@ public class Address {
     @Column(name = "state")
     private String state;
 
-    @Column(name = "postalCode")
+    @Column(name = "postal")
     private int postalCode;
 
     public int getAddressID() {
@@ -63,5 +63,33 @@ public class Address {
 
     public int getPostalCode() {
         return postalCode;
+    }
+
+    public void setAddressID(int addressID) {
+        this.addressID = addressID;
+    }
+
+    public void setStreet1(String street1) {
+        this.street1 = street1;
+    }
+
+    public void setStreet2(String street2) {
+        this.street2 = street2;
+    }
+
+    public void setStreet3(String street3) {
+        this.street3 = street3;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public void setPostalCode(int postalCode) {
+        this.postalCode = postalCode;
     }
 }

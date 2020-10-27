@@ -20,23 +20,26 @@ public class Customer {
     @Column(name = "customerID")
     private int customerID;
 
-    @Column(name = "customerFirstName")
+    @Column(name = "customerfirstname")
     private String firstName;
 
-    @Column(name = "customerLastName")
+    @Column(name = "customerlastname")
     private String lastName;
 
-    @Column(name = "customerEmail")
+    @Column(name = "customeremail")
     private String email;
 
-    @Column(name = "customerPhoneNum")
+    @Column(name = "customerphonenum")
     private String phone;
 
-    @Column(name = "customerBirthDate")
+    @Column(name = "customerbirthdate")
     private String birthday;
 
-    @Column(name = "customerEntryDate")
+    @Column(name = "customerentrydate")
     private String entryDate;
+
+    @Column(name = "Covid")
+    private int covidPos;
 
     @Column(name = "addressID")
     private int addressID;
@@ -78,5 +81,13 @@ public class Customer {
 
     public int getRestaurantID() {
         return restaurantID;
+    }
+
+    public int isCovidPos() {
+        return covidPos;
+    }
+
+    public void setCovidPos(int covidPos) {
+        this.covidPos = covidPos;
     }
 }

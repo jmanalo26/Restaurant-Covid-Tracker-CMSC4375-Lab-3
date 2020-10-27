@@ -1,8 +1,8 @@
 CREATE TABLE `restaurant` (
   `restaurantID` int unsigned NOT NULL,
-  `restaurantName` varchar(45) NOT NULL,
-  `restaurantEmail` varchar(45) NOT NULL,
-  `restaurantPhoneNum` varchar(45) NOT NULL,
+  `restaurantname` varchar(45) NOT NULL,
+  `restaurantemail` varchar(45) NOT NULL,
+  `restaurantphonenum` varchar(45) NOT NULL,
   `addressID` int unsigned NOT NULL,
   PRIMARY KEY (`restaurantID`),
   UNIQUE KEY `resterauntID_UNIQUE` (`restaurantID`)

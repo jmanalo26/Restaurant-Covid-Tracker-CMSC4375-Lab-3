@@ -21,23 +21,26 @@ public class Employee {
     @Column(name = "employeeID")
     private int ID;
 
-    @Column(name = "employeeFirstName")
+    @Column(name = "employeefirstname")
     private String firstName;
 
-    @Column(name = "employeeLastName")
+    @Column(name = "employeelastname")
     private String lastName;
 
-    @Column(name = "employeeEmail")
+    @Column(name = "employeeemail")
     private String email;
 
-    @Column(name = "employeePhoneNum")
+    @Column(name = "employeephonenum")
     private String phone;
 
-    @Column(name = "employeeBirthDate")
+    @Column(name = "employeedateofbirth")
     private String birthday;
 
-    @Column(name = "employeeEntryDate")
+    @Column(name = "employeecheckindate")
     private String entryDate;
+
+    @Column(name = "Covid")
+    private int covidPos;
 
     @Column(name = "addressID")
     private int addressID;
@@ -79,5 +82,13 @@ public class Employee {
 
     public int getRestaurantID() {
         return restaurantID;
+    }
+
+    public int getCovidPos() {
+        return covidPos;
+    }
+
+    public void setCovidPos(int covidPos) {
+        this.covidPos = covidPos;
     }
 }
