@@ -7,6 +7,9 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
+/**
+ * Repository search functions for customers
+ */
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Page<Customer> findByCustomerID(String name, final Pageable pageable);
     Page<Customer> findByFirstName(String name, final Pageable pageable);

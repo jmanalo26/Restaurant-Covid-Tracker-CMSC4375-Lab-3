@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Class constructor for restaurants
+ */
 @Getter
 @Setter
 @AllArgsConstructor

@@ -8,6 +8,9 @@ import src.edu.ben.labs.lab3.data.repository.RestaurantRepository;
 
 import java.util.List;
 
+/**
+ * Service for restaurants to find restaurant attributes
+ */
 @Service
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;

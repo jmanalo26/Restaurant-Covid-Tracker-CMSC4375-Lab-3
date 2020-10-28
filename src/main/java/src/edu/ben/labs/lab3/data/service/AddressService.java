@@ -5,6 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service for address to find address attributes
+ */
 @Service
 public class AddressService {
     private final AddressRepository addressRepository;

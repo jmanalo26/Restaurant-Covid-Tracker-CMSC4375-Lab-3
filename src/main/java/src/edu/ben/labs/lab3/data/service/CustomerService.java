@@ -9,6 +9,9 @@ import src.edu.ben.labs.lab3.data.repository.CustomerRepository;
 
 import java.util.List;
 
+/**
+ * Service for customers to find customer attributes
+ */
 @Service
 public class CustomerService {
     private final CustomerRepository customerRepository;

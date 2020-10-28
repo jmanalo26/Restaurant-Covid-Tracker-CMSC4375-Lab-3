@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import src.edu.ben.labs.lab3.data.model.Employee;
 import src.edu.ben.labs.lab3.data.repository.EmployeeRepository;
 
+/**
+ * Service for employees to find employee attributes
+ */
 @Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;

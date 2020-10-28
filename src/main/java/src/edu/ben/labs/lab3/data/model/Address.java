@@ -5,6 +5,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * Class constructor for addresses
+ */
 @Getter
 @Setter
 @AllArgsConstructor

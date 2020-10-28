@@ -4,6 +4,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+/**
+ * Repository interface for addresses
+ */
 public interface AddressRepository extends JpaRepository<Address, Long>{
     Page<Address> findByAddressID(String name, final Pageable pageable);
     Page<Address> findByStreet1(String name, final Pageable pageable);

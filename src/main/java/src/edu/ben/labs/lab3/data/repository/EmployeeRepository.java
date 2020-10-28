@@ -7,6 +7,9 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
+/**
+ * Repository search functions for employees
+ */
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Page<Employee> findByID(String name, final Pageable pageable);
     Page<Employee> findByFirstName(String name, final Pageable pageable);
