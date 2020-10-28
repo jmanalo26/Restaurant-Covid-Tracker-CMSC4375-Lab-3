@@ -5,10 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import src.edu.ben.labs.lab3.data.model.Restaurant;
 
+import java.util.List;
+
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long>  {
-    Page<Restaurant> findByRestaurantID(String name, final Pageable pageable);
+    List<Restaurant> findByRestaurantID(int num);
     Page<Restaurant> findByName(String name, final Pageable pageable);
     Page<Restaurant> findByEmail(String name, final Pageable pageable);
     Page<Restaurant> findByPhone(String name, final Pageable pageable);
-    Page<Restaurant> findByAddressID(String name, final Pageable pageable);
+    List<Restaurant> findByAddressID(int num);
 }

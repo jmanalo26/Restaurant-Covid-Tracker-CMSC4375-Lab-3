@@ -7,6 +7,8 @@ import src.edu.ben.labs.lab3.data.model.Address;
 import src.edu.ben.labs.lab3.data.model.Customer;
 import src.edu.ben.labs.lab3.data.repository.CustomerRepository;
 
+import java.util.List;
+
 @Service
 public class CustomerService {
     private final CustomerRepository customerRepository;
@@ -48,5 +50,9 @@ public class CustomerService {
 
     public Page<Customer> findRestaurantID (String query, Integer page, Integer limit) {
         return customerRepository.findByRestaurantID(query, PageRequest.of(page, limit));
+    }
+
+    public List<Customer> findCovid () {
+        return customerRepository.findByCovidPos(true);
     }
 }

@@ -40,7 +40,7 @@ public class Employee {
     private String entryDate;
 
     @Column(name = "Covid")
-    private int covidPos;
+    private boolean covidPos;
 
     @Column(name = "addressID")
     private int addressID;
@@ -84,11 +84,47 @@ public class Employee {
         return restaurantID;
     }
 
-    public int getCovidPos() {
+    public boolean getCovidPos() {
         return covidPos;
     }
 
-    public void setCovidPos(int covidPos) {
+    public void setCovidPos(boolean covidPos) {
         this.covidPos = covidPos;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setEntryDate(String entryDate) {
+        this.entryDate = entryDate;
+    }
+
+    public void setAddressID(int addressID) {
+        this.addressID = addressID;
+    }
+
+    public void setRestaurantID(int restaurantID) {
+        this.restaurantID = restaurantID;
     }
 }

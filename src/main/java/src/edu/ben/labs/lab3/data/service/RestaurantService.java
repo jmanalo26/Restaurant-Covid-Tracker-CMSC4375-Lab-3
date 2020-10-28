@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import src.edu.ben.labs.lab3.data.model.Restaurant;
 import src.edu.ben.labs.lab3.data.repository.RestaurantRepository;
 
+import java.util.List;
+
 @Service
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
@@ -13,8 +15,8 @@ public class RestaurantService {
         this.restaurantRepository = restaurantRepository;
     }
 
-    public Page<Restaurant> findRestaurantID(String query, Integer page, Integer limit) {
-        return restaurantRepository.findByRestaurantID(query, PageRequest.of(page, limit));
+    public List<Restaurant> findRestaurantID(int query, Integer page, Integer limit) {
+        return restaurantRepository.findByRestaurantID(query);
     }
 
     public Page<Restaurant> findRestaurantName(String query, Integer page, Integer limit) {
@@ -29,7 +31,7 @@ public class RestaurantService {
         return restaurantRepository.findByPhone(query, PageRequest.of(page, limit));
     }
 
-    public Page<Restaurant> findRestaurantAddress(String query, Integer page, Integer limit) {
-        return restaurantRepository.findByAddressID(query, PageRequest.of(page, limit));
+    public List<Restaurant> findRestaurantAddress(int query, Integer page, Integer limit) {
+        return restaurantRepository.findByAddressID(query);
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
 import src.edu.ben.labs.lab3.data.model.Address;
 import src.edu.ben.labs.lab3.data.model.Customer;
 import src.edu.ben.labs.lab3.data.model.Employee;
@@ -12,12 +13,14 @@ import src.edu.ben.labs.lab3.data.repository.AddressRepository;
 import src.edu.ben.labs.lab3.data.repository.CustomerRepository;
 import src.edu.ben.labs.lab3.data.repository.EmployeeRepository;
 import src.edu.ben.labs.lab3.data.repository.RestaurantRepository;
+import src.edu.ben.labs.lab3.data.service.CustomerService;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -41,6 +44,13 @@ public class RestaurantCOVIDTracker {
     public static ArrayList<Integer> duplicateAddresses = new ArrayList<>();
     public static ArrayList<Integer> duplicateRestaurants = new ArrayList<>();
 
+    /**
+     * Initializes repositories into the application
+     * @param addressRepository
+     * @param customerRepository
+     * @param employeeRepository
+     * @param restaurantRepository
+     */
     public RestaurantCOVIDTracker(AddressRepository addressRepository, CustomerRepository customerRepository, EmployeeRepository employeeRepository,
                                   RestaurantRepository restaurantRepository){
         this.addressRepository = addressRepository;
@@ -49,10 +59,18 @@ public class RestaurantCOVIDTracker {
         this.restaurantRepository = restaurantRepository;
     }
 
+    /**
+     * Main method to run Spring application
+     * @param args
+     */
     public static void main(String[] args) {
         SpringApplication.run(RestaurantCOVIDTracker.class, args);
     }
 
+    /**
+     * Method to run command line
+     * @return processing of data into MySQL database.
+     */
     @Bean
     public CommandLineRunner process(){
         return (args) ->
@@ -99,8 +117,15 @@ public class RestaurantCOVIDTracker {
                 restaurantList.remove(s);
             }
         }
+
+        printAllCOVID();
     }
 
+    /**
+     * Reads address CSV and processes data.
+     * @param csvFile
+     * @throws FileNotFoundException
+     */
     public void addressFileReader(File csvFile) throws FileNotFoundException {
         Scanner fileInput = new Scanner(csvFile);
         // Skip 1st line
@@ -114,6 +139,10 @@ public class RestaurantCOVIDTracker {
         fileInput.close();
     }
 
+    /**
+     * Creates address object and store into database.
+     * @param item
+     */
     public void storeAddress(String[] item) {
         Address newAddress = new Address();
         newAddress.setAddressID(Integer.parseInt(item[0]));
@@ -126,10 +155,14 @@ public class RestaurantCOVIDTracker {
         if (!addressList.containsKey(item[0])) {
             addressList.put(newAddress.getAddressID(), newAddress);
             addressRepository.save(newAddress);
-            System.out.println(newAddress.getStreet1());
         }
     }
 
+    /**
+     * Reads Customer CSV and processes data
+     * @param csvFile
+     * @throws FileNotFoundException
+     */
     public void customerFileReader(File csvFile) throws FileNotFoundException {
         Scanner fileInput = new Scanner(csvFile);
         // Skip 1st line
@@ -143,6 +176,10 @@ public class RestaurantCOVIDTracker {
         fileInput.close();
     }
 
+    /**
+     * Creates customer object and stores into MySQL database.
+     * @param item
+     */
     public void storeCustomer(String[] item) {
         Customer newCustomer = new Customer();
         newCustomer.setCustomerID(Integer.parseInt(item[0]));
@@ -152,21 +189,20 @@ public class RestaurantCOVIDTracker {
         newCustomer.setPhone(item[4]);
         newCustomer.setBirthday(item[5]);
         newCustomer.setEntryDate(item[6]);
-        if (item[7].contains("x")) {
-            item[7] = "1";
-        } else {
-            item[7] = "0";
-        }
-        newCustomer.setCovidPos(Integer.parseInt(item[7]));
+        newCustomer.setCovidPos(Boolean.parseBoolean(item[7]));
         newCustomer.setAddressID(Integer.parseInt(item[8]));
         newCustomer.setRestaurantID(Integer.parseInt(item[9]));
         if (!customerList.containsKey(item[0])) {
             customerList.put(newCustomer.getCustomerID(), newCustomer);
             customerRepository.save(newCustomer);
-            System.out.println(newCustomer.getFirstName() + " " + newCustomer.getLastName());
         }
     }
 
+    /**
+     * Reads employee file and processes data
+     * @param csvFile
+     * @throws FileNotFoundException
+     */
     public void employeeFileReader(File csvFile) throws FileNotFoundException {
         Scanner fileInput = new Scanner(csvFile);
         // Skip 1st line
@@ -180,6 +216,10 @@ public class RestaurantCOVIDTracker {
         fileInput.close();
     }
 
+    /**
+     * Method to create employee object and store into MySQL database
+     * @param item
+     */
     public void storeEmployee(String[] item) {
         Employee newEmployee = new Employee();
         newEmployee.setID(Integer.parseInt(item[0]));
@@ -189,21 +229,20 @@ public class RestaurantCOVIDTracker {
         newEmployee.setPhone(item[4]);
         newEmployee.setBirthday(item[5]);
         newEmployee.setEntryDate(item[6]);
-        if (item[7].contains("x")) {
-            item[7] = "1";
-        } else {
-            item[7] = "0";
-        }
-        newEmployee.setCovidPos(Integer.parseInt(item[7]));
+        newEmployee.setCovidPos(Boolean.parseBoolean(item[7]));
         newEmployee.setAddressID(Integer.parseInt(item[8]));
         newEmployee.setRestaurantID(Integer.parseInt(item[9]));
         if (!employeeList.containsKey(item[0])) {
             employeeList.put(newEmployee.getID(), newEmployee);
             employeeRepository.save(newEmployee);
-            System.out.println(newEmployee.getFirstName() + " " + newEmployee.getLastName());
         }
     }
 
+    /**
+     * Method to read Restaurant CSV file and process the data
+     * @param csvFile
+     * @throws FileNotFoundException
+     */
     public void restaurantFileReader(File csvFile) throws FileNotFoundException {
         Scanner fileInput = new Scanner(csvFile);
         // Skip 1st line
@@ -217,7 +256,11 @@ public class RestaurantCOVIDTracker {
         fileInput.close();
     }
 
-    public  void storeRestaurant(String[] item) {
+    /**
+     * Method will process data into a Restaurant object and store into MySQL database
+     * @param item
+     */
+    public void storeRestaurant(String[] item) {
         Restaurant place = new Restaurant(0, null, null, null, 0);
         place.setRestaurantID(Integer.parseInt(item[0]));
         place.setName(item[1]);
@@ -227,8 +270,64 @@ public class RestaurantCOVIDTracker {
         if (!restaurantList.containsKey(item[0])) {
             restaurantList.put(place.getRestaurantID(), place);
             restaurantRepository.save(place);
-            System.out.println(place.getName());
         }
     }
+
+    /**
+     * Method to check database for confirmed positive COVID cases and warns to contact all
+     * customers and employees who were present in the same restaurant of possible COVID
+     * exposure.
+     */
+    public void printAllCOVID(){
+        List<Customer> customers = customerRepository.findByCovidPos(true);
+        List<Employee> employees = employeeRepository.findByCovidPos(true);
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+        ArrayList<Integer> idCheck = new ArrayList<Integer>();
+        System.out.println("Confirmed Positive Cases: ");
+        for (Customer c: customers){
+            System.out.println(c.getFirstName() + " " + c.getLastName() + " at restaurant ID " +  c.getRestaurantID() + " on " + c.getEntryDate());
+            if (!idCheck.contains(c.getRestaurantID())) {
+                idCheck.add(c.getRestaurantID());
+            }
+        }
+
+        for (Employee e: employees){
+            System.out.println(e.getFirstName() + " " + e.getLastName() + " at restaurant ID " +  e.getRestaurantID() + " on " + e.getEntryDate());
+            if (!idCheck.contains(e.getRestaurantID())) {
+                idCheck.add(e.getRestaurantID());
+            }
+        }
+
+        System.out.println();
+        System.out.println("Exposed Restaurants: ");
+        for(Restaurant r: restaurants){
+            if (idCheck.contains(r.getRestaurantID())){
+                System.out.println(r.getName() + ", ID = " + r.getRestaurantID() + ", Phone Number: " + r.getPhone());
+            }
+        }
+
+        System.out.println();
+        List<Customer> allCustomers = customerRepository.findAll();
+        List<Employee> allEmployees = employeeRepository.findAll();
+        System.out.println("Please contact these people to warn about possible COVID-19 exposure: ");
+        for (int i: idCheck){
+            for (Customer c: allCustomers){
+                if (c.getRestaurantID() == i){
+                    System.out.println(c.getFirstName() + " " + c.getLastName() + ": " + c.getPhone());
+                }
+            }
+
+            for (Employee e: allEmployees){
+                if (e.getRestaurantID() == i){
+                    System.out.println(e.getFirstName() + " " + e.getLastName() + ": " + e.getPhone());
+                }
+            }
+        }
+
+
+
+    }
+
+
 
 }
